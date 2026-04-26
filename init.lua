@@ -5,9 +5,10 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
+vim.g.kitty_keyboard_protocol = false
 
--- [[ Setting options ]]
+-- [[ Setting options ]]ini
 -- See `:help vim.o`
 -- For more options, you can see `:help option-list`
 vim.o.number = true
@@ -154,6 +155,7 @@ require('lazy').setup({
        event = 'InsertEnter',
        opts = {},
     },
+    { 'mfussenegger/nvim-jdtls' },
   -- See `:help gitsigns` to understand what the configuration keys do
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -250,6 +252,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>sc', builtin.commands, { desc = '[S]earch [C]ommands' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>e', ':Ex<CR>', { desc = 'Open [E]xplorer' })
 
       -- This runs on LSP attach per buffer (see main LSP attach function in 'neovim/nvim-lspconfig' config for more info,
       -- it is better explained there). This allows easily switching between pickers if you prefer using something else!
@@ -310,6 +313,8 @@ require('lazy').setup({
 
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<leader>sn', function() builtin.find_files { cwd = vim.fn.stdpath 'config' } end, { desc = '[S]earch [N]eovim files' })
+      vim.keymap.set('n', '<leader>sp', function() builtin.find_files { cwd = vim.fn.expand('~/Documents/projects') } end, { desc = '[S]earch [P]rojects' })
+      vim.keymap.set('n', '<leader>sa', function() builtin.find_files { cwd = vim.fn.expand('~/Documents/projects/assignment-five-turning-photos-into-cartoons') } end, { desc = '[S]earch [A]ssignment' })
     end,
   },
 
@@ -446,8 +451,10 @@ require('lazy').setup({
 
         pyright = {},
         stylua = {}, -- Used to format Lua code
-        java_language_server = {},
-
+        jdtls = {
+          cmd = { vim.fn.stdpath('data') .. '/mason/bin/jdtls', '-data', vim.fn.expand('~/.cache/nvim/jdtls/workspace') },
+          root_markers = { 'pom.xml', 'build.gradle', '.git' },
+        },
         -- Special Lua Config, as recommended by neovim help docs
         lua_ls = {
           on_init = function(client)
@@ -645,18 +652,18 @@ require('lazy').setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    'ellisonleao/gruvbox.nvim',
+    'rebelot/kanagawa.nvim',
     priority = 1000, -- Make sure to load this before all the other start plugins.
     config = function()
-      ---@diagnostic disable-next-line: missing-fields
-      require('gruvbox').setup {
-        styles = {
-          comments = { italic = false }, -- Disable italics in comments
-        },
-      }
+      vim.cmd.colorscheme 'kanagawa-dragon'
+      -- ---@diagnostic disable-next-line: missing-fields
+      -- require('kanagawa-dragon').setup {
+      --   styles = {
+      --     comments = { italic = false }, -- Disable italics in comments
+      --   },
+      -- }
 
-      vim.o.background = "dark"
-      vim.cmd.colorscheme 'gruvbox'
+      --vim.o.background = "dark"
     end,
   },
 
@@ -784,7 +791,7 @@ require('lazy').setup({
   -- require 'kickstart.plugins.lint',
   -- require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommended keymaps
+     require 'kickstart.plugins.gitsigns', -- adds gitsigns recommended keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
