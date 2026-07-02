@@ -1,107 +1,140 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = true
-vim.g.kitty_keyboard_protocol = false
+	-- Set to true if you have a Nerd Font installed and selected in the terminal
+	vim.g.have_nerd_font = true
+	vim.g.kitty_keyboard_protocol = false
 
-vim.o.number = true
-vim.o.mouse = "a"
-vim.o.showmode = false
--- Sync clipboard between OS and Neovim.
-vim.schedule(function()
-	vim.o.clipboard = "unnamedplus"
-end)
--- Enable break indent
-vim.o.breakindent = true
--- Enable undo/redo changes even after closing and reopening a file
-vim.o.undofile = true
--- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
-vim.o.ignorecase = true
-vim.o.smartcase = true
--- Keep signcolumn on by default
-vim.o.signcolumn = "yes"
--- Decrease update time
-vim.o.updatetime = 250
--- Decrease mapped sequence wait time
-vim.o.timeoutlen = 300
--- Configure how new splits should be opened
-vim.o.splitright = true
-vim.o.splitbelow = true
-vim.o.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.tabstop = 4 -- tab character = 4 spaces
-vim.opt.shiftwidth = 4 -- indent = 4 spaces
-vim.opt.expandtab = true -- insert spaces, not tab chars
--- Preview substitutions live, as you type!
-vim.o.inccommand = "split"
--- Show which line your cursor is on
-vim.o.cursorline = true
-vim.o.relativenumber = true
--- Minimal number of screen lines to keep above and below the cursor.
-vim.o.scrolloff = 14
-vim.o.confirm = true
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+	vim.o.number = true
+	vim.o.mouse = "a"
+	vim.o.showmode = false
+	-- Sync clipboard between OS and Neovim.
+	vim.schedule(function()
+		vim.o.clipboard = "unnamedplus"
+	end)
+	-- Enable break indent
+	vim.o.breakindent = true
+	-- Enable undo/redo changes even after closing and reopening a file
+	vim.o.undofile = true
+	-- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
+	vim.o.ignorecase = true
+	vim.o.smartcase = true
+	-- Keep signcolumn on by default
+	vim.o.signcolumn = "yes"
+	-- Decrease update time
+	vim.o.updatetime = 250
+	-- Decrease mapped sequence wait time
+	vim.o.timeoutlen = 300
+	-- Configure how new splits should be opened
+	vim.o.splitright = true
+	vim.o.splitbelow = true
+	vim.o.list = true
+	vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+	vim.opt.tabstop = 4 -- tab character = 4 spaces
+	vim.opt.shiftwidth = 4 -- indent = 4 spaces
+	vim.opt.expandtab = true -- insert spaces, not tab chars
+	-- Preview substitutions live, as you type!
+	vim.o.inccommand = "split"
+	-- Show which line your cursor is on
+	vim.o.cursorline = true
+	vim.o.relativenumber = true
+	-- Minimal number of screen lines to keep above and below the cursor.
+	vim.o.scrolloff = 14
+	vim.o.confirm = true
+	vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Diagnostic Config & Keymaps
--- See :help vim.diagnostic.Opts
-vim.diagnostic.config({
-	update_in_insert = false,
-	severity_sort = true,
-	float = { border = "rounded", source = "if_many" },
-	underline = { severity = { min = vim.diagnostic.severity.WARN } },
+	-- Diagnostic Config & Keymaps
+	-- See :help vim.diagnostic.Opts
+	vim.diagnostic.config({
+		update_in_insert = false,
+		severity_sort = true,
+		float = { border = "rounded", source = "if_many" },
+		underline = { severity = { min = vim.diagnostic.severity.WARN } },
 
-	-- Can switch between these as you prefer
-	virtual_text = true, -- Text shows up at the end of the line
-	virtual_lines = false, -- Text shows up underneath the line, with virtual lines
+		-- Can switch between these as you prefer
+		virtual_text = true, -- Text shows up at the end of the line
+		virtual_lines = false, -- Text shows up underneath the line, with virtual lines
 
-	-- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
-	jump = { float = true },
-})
+		-- Auto open the float, so you can easily read the errors when jumping with `[d` and `]d`
+		jump = { float = true },
+	})
 
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
+	vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
---
--- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
--- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+	-- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
+	-- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
+	--
+	-- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
+	-- or just use <C-\><C-n> to exit terminal mode
+	vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
---  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+	--  See `:help wincmd` for a list of all window commands
+	vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
+	vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
+	vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
+	vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.hl.on_yank()`
-vim.api.nvim_create_autocmd("TextYankPost", {
-	desc = "Highlight when yanking (copying) text",
-	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
-	callback = function()
-		vim.hl.on_yank()
-	end,
-})
+	-- Highlight when yanking (copying) text
+	--  Try it with `yap` in normal mode
+	--  See `:help vim.hl.on_yank()`
+	vim.api.nvim_create_autocmd("TextYankPost", {
+		desc = "Highlight when yanking (copying) text",
+		group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+		callback = function()
+			vim.hl.on_yank()
+		end,
+	})
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-	if vim.v.shell_error ~= 0 then
-		error("Error cloning lazy.nvim:\n" .. out)
+	local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+	if not (vim.uv or vim.loop).fs_stat(lazypath) then
+		local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+		local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+		if vim.v.shell_error ~= 0 then
+			error("Error cloning lazy.nvim:\n" .. out)
+		end
 	end
-end
 
----@type vim.Option
-local rtp = vim.opt.rtp
-rtp:prepend(lazypath)
+	---@type vim.Option
+	local rtp = vim.opt.rtp
+	rtp:prepend(lazypath)
 
--- NOTE: Here is where you install your plugins.
-require("lazy").setup({
-	{ "NMAC427/guess-indent.nvim", opts = {} },
-	{ "tpope/vim-fugitive" },
+	-- NOTE: Here is where you install your plugins.
+	require("lazy").setup({
+		{ "NMAC427/guess-indent.nvim", opts = {} },
+		{ "tpope/vim-fugitive" },
+
+		{ -- Quickly mark and jump between a curated set of files
+			"ThePrimeagen/harpoon",
+			branch = "harpoon2",
+			dependencies = { "nvim-lua/plenary.nvim" },
+			config = function()
+				local harpoon = require("harpoon")
+				harpoon:setup()
+
+				-- Add the current file to the end of the Harpoon list
+				vim.keymap.set("n", "<leader>ha", function()
+					harpoon:list():add()
+				end, { desc = "[A]dd file" })
+
+				-- Toggle the quick menu of harpooned files
+				vim.keymap.set("n", "<leader>hm", function()
+					harpoon.ui:toggle_quick_menu(harpoon:list())
+				end, { desc = "Toggle [m]enu" })
+
+				-- Jump to files 1-4 and set/replace a slot with Ctrl+key
+				local slots = { "1", "2", "3", "4" }
+				for index, key in ipairs(slots) do
+					vim.keymap.set("n", "<leader>h" .. key, function()
+						harpoon:list():select(index)
+					end, { desc = "Jump to file [" .. index .. "]" })
+
+					vim.keymap.set("n", "<leader>h<C-" .. key .. ">", function()
+						harpoon:list():replace_at(index)
+					end, { desc = "Set file [" .. index .. "]" })
+			end
+		end,
+	},
+
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
@@ -139,7 +172,7 @@ require("lazy").setup({
 			spec = {
 				{ "<leader>s", group = "[S]earch", mode = { "n", "v" } },
 				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } }, -- Enable gitsigns recommended keymaps first
+				{ "<leader>h", group = "[H]arpoon" },
 				{ "gr", group = "LSP Actions", mode = { "n" } },
 			},
 		},
@@ -418,7 +451,15 @@ require("lazy").setup({
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
 				-- ts_ls = {},
 
-				pyright = {},
+				basedpyright = {
+					settings = {
+						basedpyright = {
+							analysis = {
+								typeCheckingMode = "standard", -- match classic pyright (basedpyright defaults to stricter "recommended")
+							},
+						},
+					},
+				},
 				stylua = {}, -- Used to format Lua code
 				jdtls = {
 					cmd = {
@@ -721,6 +762,7 @@ require("lazy").setup({
 				"vim",
 				"vimdoc",
 				"java",
+				"python",
 			}
 			require("nvim-treesitter").install(parsers)
 
